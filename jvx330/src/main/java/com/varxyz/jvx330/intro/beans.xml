@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="helloBean" class="com.varxyz.jvx330.intro.HelloBeanEn"/>
+</beans>
+<!-- 부모 태그가 beans이므로 하위 태그는 bean -->
+<!-- 기본적으로 스프링은 bean에 등록시키면 싱글톤으로 처리됨 -->
+<!-- 동적으로 클래스 정보를 읽어들여 클래스를 만들겠다 : 자바 리프렉션 -->

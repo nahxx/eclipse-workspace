@@ -1,0 +1,16 @@
+CREATE TABLE UserTable (
+	no			BIGINT			PRIMARY KEY AUTO_INCREMENT,
+	userId		VARCHAR(16)		NOT NULL,
+	passwd		VARCHAR(20)		NOT NULL,
+	userName	VARCHAR(20)		NOT NULL,
+	ssn			VARCHAR(6),
+	email		VARCHAR(20),
+	addr		VARCHAR(20),
+	regDate		TIMESTAMP		NOT NULL	DEFAULT CURRENT_TIMESTAMP
+) AUTO_INCREMENT = 1001;
+
+SELECT * FROM UserTable;
+
+SELECT * FROM UserTable WHERE userId = "vv" and passwd = "vv"
+
+DROP TABLE UserTable;

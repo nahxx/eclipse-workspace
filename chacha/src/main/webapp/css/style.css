@@ -1,0 +1,105 @@
+@charset "UTF-8";
+* { box-sizing: border-box; margin: 0; padding: 0;}
+ul, li {list-style: none;}
+a {text-decoration: none; color: #333;}
+
+.container {
+  padding-top: 60px;
+  display: flex;
+  flex-wrap: wrap;
+  height: 100%;
+  width: 700px;
+  margin: 0 auto;
+}
+form {
+  width: 100%;
+}
+h3 {
+  font-size: 25px;
+  width: 100%;
+}
+.d {
+  height: 50px;
+  width: 100%;
+  display: flex;
+  justify-content: left;
+  align-items: center;
+  margin-top: 10px;
+}
+.d > input {
+  height: 35px;
+  line-height: 35px;
+  padding-left: 5px;
+
+}
+select {
+  height: 35px;
+  width: 150px;
+  font-size: 15px;
+}
+span.email {
+  margin: 0 5px;
+}
+.checkbox-layout {
+  height: 100px;
+}
+.inner-box {
+  margin: 0;
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+.inner-box h2 {
+  width: 100%;
+}
+.box {
+  display: inline-block;
+  width: 18%;
+  position: relative;
+  overflow: hidden;
+}
+.box label {
+  position: absolute;
+  top: 14px;
+  left: 20px;
+}
+.box input {
+  height: 50px;
+}
+span {
+  font-size: 18px;
+  font-weight: 400;
+  color: #333;
+}
+.btn {
+  justify-content: center;
+  width: 80px;
+  height: 40px;
+  margin: 0 auto;
+  background: #f9f9f9;
+  border-radius: 12px;
+  border: 1px solid #000;
+  margin-top: 20px;
+}
+button {
+	border-style: none;
+}
+button.btn-inner {
+  border-style: none;
+  height: 40px;
+  width: 75px;
+  font-size:20px;
+  background: none;
+  cursor: pointer;
+}
+.address1 {
+	width: 250px;
+	margin-right: 10px;
+}
+
+.title {
+	width: 100%;
+	text-align: center;
+	height: 80px;
+	line-height: 80px;
+}

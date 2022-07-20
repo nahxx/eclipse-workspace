@@ -1,0 +1,7 @@
+시작 전 환경설정
+
+1. 이클립스에서 eteam 메이븐 프로젝트 생성
+
+2. src/main/java 에 com.eteam.study 패키지 생성
+
+3. 2에서 생성한 패키지 안에 $01_class 패키지 생성

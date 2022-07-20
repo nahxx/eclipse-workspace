@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Insert title here</title>
+</head>
+<body>
+<!--
+	<url-pattern>/mod004/hello.do</url-pattern>
+	주소 앞에 /가 있으면 절대주소
+	../ 이런식으로 있으면 상대주소
+-->
+	<form action="hello.do" method="get">
+	<!-- action에는 이 폼의 정보를 처리할 대상(지금은 servlet)의 경로 입력 -->
+	<!-- method에서는 서버로 보낼 때 GET/POST 중 뭘로 보낼지 적용 / 입력 안하면 GET이 기본값 -->
+		이름 : <input type="text" name="userName"/>
+		<input type="submit" value="확인"/>
+	</form>
+</body>
+</html>

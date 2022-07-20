@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>회원가입</title>
+<link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+	<div class="wrap">
+		<h3>회원가입</h3>
+		<form class="signUp" action="add_user.do" method="get">
+			<ul>
+				<li>
+					<label for="userId">회원아이디 :
+						<input type="text" id="userId" name="userId">
+					</label>
+				</li>
+				<li>
+					<label for="passwd">비밀번호 :
+						<input type="password" id="passwd" name="passwd">
+					</label>
+				</li>
+				<li>
+					<label for="userName">이름 : 
+						<input type="text" id="userName" name="userName">
+					</label>
+				</li>
+				<li>
+					<label for="ssn">주민번호 : 
+						<input type="text" id="ssn" name="ssn">
+					</label>
+				</li>
+				<li>
+					<label for="email">이메일 : 
+						<input type="text" id="email" name="email1"> @ 
+						<select name="email2">
+							<option value="naver.com">naver.com</option>
+							<option value="gmail.com">gmail.com</option>
+							<option value="kakao.com">kakao.com</option>
+							<option value="daum.net">daum.net</option>
+							<!-- <option value="naver">직접입력</option> -->
+						</select>
+					</label>
+				</li>
+				<li>
+					<label for="concerns">관심분야 : 
+						<input type="checkbox" id="concerns" name="concerns" value="Java">Java
+						<input type="checkbox" id="concerns" name="concerns" value="Servlet/JSP">Servlet/JSP
+						<input type="checkbox" id="concerns" name="concerns" value="EJB">EJB
+						<input type="checkbox" id="concerns" name="concerns" value="Android">Android
+						<input type="checkbox" id="concerns" name="concerns" value="Spring">Spring
+					</label>
+				</li>
+			</ul>
+				<!--
+				<label for="userId">회원아이디 :
+					<input type="text" id="userId" name="userId">
+				</label>
+				<label for="passwd">비밀번호 :
+					<input type="password" id="passwd" name="passwd">
+				</label>
+				<label for="userName">이름 : 
+					<input type="text" id="userName" name="userName">
+				</label>
+				<label for="ssn">주민번호 : 
+					<input type="text" id="ssn" name="ssn">
+				</label>
+				<label for="email">이메일 : 
+					<input type="text" id="email" name="email1"> @ 
+					<select name="email2">
+						
+						<option value="naver.com">naver.com</option>
+						<option value="gmail.com">gmail.com</option>
+						<option value="kakao.com">kakao.com</option>
+						<option value="daum.net">daum.net</option>
+					</select>
+				</label>
+				
+				<label for="concerns">관심분야 : 
+					<input type="checkbox" id="concerns" name="concerns" value="Java">Java
+					<input type="checkbox" id="concerns" name="concerns" value="Servlet/JSP">Servlet/JSP
+					<input type="checkbox" id="concerns" name="concerns" value="EJB">EJB
+					<input type="checkbox" id="concerns" name="concerns" value="Android">Android
+					<input type="checkbox" id="concerns" name="concerns" value="Spring">Spring
+				</label> -->
+			<input type="submit" value="확인"/>
+		</form>
+	</div>
+</body>
+</html>

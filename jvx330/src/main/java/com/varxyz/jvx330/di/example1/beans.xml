@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+
+	<bean name="foo" class="com.varxyz.jvx330.di.example1.Foo">
+		<constructor-arg ref="bar"/> <!-- 생성자의 아규먼트 (bean이 bean끼리 참조관계)-->
+	</bean>
+	
+	<bean name="bar" class="com.varxyz.jvx330.di.example1.Bar"/>
+</beans>
