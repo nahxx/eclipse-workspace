@@ -7,7 +7,7 @@ public class AppMain {
 	public static void main(String[] args) {
 		String config = "com/varxyz/jvx330/intro/beans.xml";
 		GenericApplicationContext context = new GenericXmlApplicationContext(config);
-		Hello hello = context.getBean("helloBean", Hello.class); /* HelloBeanKo를 Hello 타입으로 캐스팅해서 가져옴 */
+		Hello hello = context.getBean("helloBean", Hello.class); /* HelloBeanKo를 Hello 타입으로 캐스팅해서 가져옴, 싱글톤 개념과 비슷 */
 		System.out.println(hello.sayHello("Spring"));
 		// HelloBeanEn인지 HelloBeanKo인지는 외부파일에서 변경하므로 여기서는 무엇인지 알수 없음
 		context.close();

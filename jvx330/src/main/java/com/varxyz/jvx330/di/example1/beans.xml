@@ -7,5 +7,15 @@
 		<constructor-arg ref="bar"/> <!-- 생성자의 아규먼트 (bean이 bean끼리 참조관계)-->
 	</bean>
 	
+	<bean name="foo2" class="com.varxyz.jvx330.di.example1.Foo">
+		<property name="bar" ref="bar"/>
+		<!-- ref(레퍼런스)는 위의 ref와 같음. 
+		name=bar는 프라퍼티의 이름. setBar 또는 getBar 메서드를 찾아서 작동
+		이때 set get을 사용하기 위해서는 Foo클래스에 아규먼트가 없는 생성자를 만들어주어야 함
+		-->
+	</bean>
+	
+	
 	<bean name="bar" class="com.varxyz.jvx330.di.example1.Bar"/>
 </beans>
+

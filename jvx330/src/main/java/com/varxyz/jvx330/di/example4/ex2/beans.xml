@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="byTypeClient" class="com.varxyz.jvx330.di.example4.ex2.ByTypeClient" autowire="byType"/>
+	<bean name="jmsNamingService" class="com.varxyz.jvx330.di.example4.ex2.JmsNamingServiceImpl"/>
+	<bean name="dmsNamingService" class="com.varxyz.jvx330.di.example4.ex2.DmsNamingServiceImpl"/>
+	
+	<!-- byName보다는 byType을 많이 씀. 좀더 pholymorphism에 적합 -->
+</beans>

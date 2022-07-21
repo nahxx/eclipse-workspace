@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd">
+	
+	<bean name="byNameClient" class="com.varxyz.jvx330.di.example4.ex1.ByNameClient" autowire="byName"/>
+	<!-- autowire : 객체간의 의존관계를 자동으로 연결해줌
+		byName으로 이름지어진 bean을 프로퍼티로 설정해줌
+		해당 클래스에서는 get&set 뒤에 JmsNamingService가 들어오므로 jmsNamingService가 프로퍼티로 들어가게 됨-->
+	<bean name="jmsNamingService" class="com.varxyz.jvx330.di.example4.ex1.JmsNamingServiceImpl"/>
+	<bean name="dmsNamingService" class="com.varxyz.jvx330.di.example4.ex1.DmsNamingServiceImpl"/>
+	
+</beans>
