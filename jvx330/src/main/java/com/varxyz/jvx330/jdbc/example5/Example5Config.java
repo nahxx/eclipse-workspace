@@ -1,17 +1,14 @@
-package com.varxyz.jvx330.jdbc;
+package com.varxyz.jvx330.jdbc.example5;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.jdbc.core.JdbcTemplate;
 
-import com.varxyz.jvx330.jdbc.example1.AddCustomerDao;
-import com.varxyz.jvx330.jdbc.example1.AddCustomerDataSourceDao;
-import com.varxyz.jvx330.jdbc.example2.CustomerDao;
-import com.varxyz.jvx330.jdbc.example5.AccountDao;
-
 @Configuration
-public class DataSourceConfig {
+@ComponentScan(basePackages = "com.varxyz.jvx330.jdbc.example5")
+public class Example5Config {
 	
 	@Bean(destroyMethod = "close")
 	public DataSource dataSource() {
@@ -32,18 +29,8 @@ public class DataSourceConfig {
 	}
 	
 	@Bean
-	public AddCustomerDataSourceDao addCustomerDataSourceDao() {
-		return new AddCustomerDataSourceDao(dataSource());
+	public AccountDao accountDao() {
+		return new AccountDao(dataSource());
 	}
 	
-	@Bean
-	public AddCustomerDao addCustomerDao() {
-		return new AddCustomerDao(dataSource());
-	}
-	
-	@Bean
-	public CustomerDao customerDao() {
-		return new CustomerDao(dataSource());
-	}
-
 }
