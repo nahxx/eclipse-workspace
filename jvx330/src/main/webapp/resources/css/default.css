@@ -1,1 +1,58 @@
 @charset "UTF-8";
+
+:root {
+	--headerHeight: 80px;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+}
+
+h1, h2, h3, h4, h5 {
+	text-align: center;
+	margin: 0;
+}
+
+.header {
+	height: var(--headerHeight);
+	border-bottom: 1px solid lavender;
+}
+
+.header h1 {
+	line-height: var(--headerHeight);
+}
+
+.wrap {
+	width: 1320px;
+	height: calc(100vh - (var(--headerHeight) - 1));
+	margin: 0 auto;
+	padding-top: 30px;
+	box-sizing: border-box;
+}
+form {
+	width: 1320px;
+	height: 100%;
+	margin: 0 auto;
+	text-align: center;
+}
+
+input[type="submit"] {
+	width: 150px;
+	height: 45px;
+	margin: 0 auto;
+	margin-top: 20px;
+	border-radius: 25px;
+	border-style: none;
+	background: lavender;
+	color: gray;
+	font-size: 18px;
+	font-weight: 700;
+}
+
+input[type="submit"]:hover {
+	background: white;
+	border: 1px solid lavender;
+	color: gray;
+	cursor: pointer;
+}
