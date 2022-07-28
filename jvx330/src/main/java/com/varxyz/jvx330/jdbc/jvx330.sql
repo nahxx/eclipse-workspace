@@ -1,6 +1,6 @@
 CREATE TABLE Customer(
 	cid		BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	email	VARCHAR(20)		NOT NULL,
+	userId	VARCHAR(20)		NOT NULL,
 	passwd	VARCHAR(20)		NOT NULL,
 	name	VARCHAR(20)		NOT NULL,
 	ssn		VARCHAR(14)		NOT NULL, -- 123456-7890123
@@ -14,6 +14,10 @@ UPDATE Customer SET name="관우" WHERE cid=1003;
 
 SELECT count(*) FROM Customer;
 
+DELETE FROM Customer WHERE cid=1020;
+
+DROP TABLE Customer;
+DROP TABLE ACcount;
 
 CREATE TABLE Account(
 	aid				BIGINT			PRIMARY KEY AUTO_INCREMENT,
@@ -30,3 +34,21 @@ CREATE TABLE Account(
 )AUTO_INCREMENT = 3001;
 
 SELECT * FROM Account;
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('111-11-1111', 'S', 10000, 0.1, 0.0, 1001);
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('222-22-2222', 'S', 20000, 0.2, 0.0, 1002);
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('333-33-3333', 'S', 30000, 0.3, 0.0, 1003);
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('444-44-4444', 'C', 40000, 0.0, 40000, 1001);
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('555-55-5555', 'C', 50000, 0.0, 50000, 1002);
+
+INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
+VALUES ('666-66-6666', 'C', 60000, 0.0, 60000, 1003);
