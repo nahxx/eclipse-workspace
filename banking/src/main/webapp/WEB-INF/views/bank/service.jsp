@@ -21,7 +21,7 @@
 		</ul>
 	</header>
 	<div class="wrap">
-		<h3>은행 서비스</h3>
+		<h3>나나은행</h3>
 		<div class="service-box">
 			<form action="add_account" method="get" class="center">
 				<input type="submit" value="신규 계좌 신청"/>
@@ -44,7 +44,7 @@
 		</div>
 	</div>
 	<footer>
-		<p>Copyright &copy; made by <strong>Kim Nahye</strong></p>
+		<p>Copyright &copy; made by <strong>Nana</strong></p>
 	</footer>
 </body>
 </html>

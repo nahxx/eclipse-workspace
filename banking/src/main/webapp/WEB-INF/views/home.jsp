@@ -13,7 +13,7 @@
 		<h1><a href="/banking">Banking</a></h1>
 	</header>
 	<div class="wrap login-wrap">
-		<h3>은행 시스템</h3>
+		<h3>나나은행</h3>
 		<form action="login" method="post" class="login">
 			<label>
 				<span>아이디</span>
@@ -33,7 +33,7 @@
 		</form>
 	</div>
 	<footer>
-		<p>Copyright &copy; made by <strong>Kim Nahye</strong></p>
+		<p>Copyright &copy; made by <strong>Nana</strong></p>
 	</footer>
 </body>
 </html>

@@ -36,32 +36,6 @@ public class ServiceController {
 	@Autowired
 	private CustomerService customerService;
 	
-//	@GetMapping("/bank")
-//	public String home() {
-//		return "home";
-//	}
-//	
-//	@PostMapping("/service/login")
-//	public ModelAndView login(HttpServletRequest request, @RequestParam(value="userId", required = true) String id,
-//			@RequestParam String passwd) {
-//		
-//		if(!userService.isValidUser(userId, passwd)) {
-//         request.getRequestDispatcher("login.jsp").forward(request, response);
-//         return ;
-//       }
-//		
-//		HttpSession session = request.getSession(true);
-//	    session.setAttribute("userId", id);
-//		
-//		ModelAndView mav = new ModelAndView();
-//		mav.addObject("userId", id);
-//		mav.addObject("passwd", passwd);
-//		mav.setViewName("service");
-//		
-//		return mav;
-//		
-//	}
-	
 	// home 페이지 접속
 	@GetMapping("")
 	public String home() {
@@ -94,14 +68,11 @@ public class ServiceController {
 	public String service(HttpServletRequest request, HttpServletResponse response) throws IOException {
 		HttpSession session = request.getSession(false);
 	    String userId = (String) session.getAttribute("userId");
+	    
 	    // 로그인상태가 아니라면 로그인 화면으로 이동
-		if(userId == null || userId.length() == 0) {
-		    response.setContentType("text/html; charset=UTF-8");
-		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
-		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
-	    }
-		return "bank/service";
+	    customerService.checkingLogin(userId, request, response);
+	    
+	    return "bank/service";
 	}
 	
 	// 회원가입 페이지 접속
@@ -126,12 +97,7 @@ public class ServiceController {
 	    String userId = (String) session.getAttribute("userId");
 	    
 	    // 로그인상태가 아니라면 로그인 화면으로 이동
-	    if(userId == null || userId.length() == 0) {
-		    response.setContentType("text/html; charset=UTF-8");
-		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
-		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
-	    }
+	    customerService.checkingLogin(userId, request, response);
 	    
 	    ModelAndView mav = new ModelAndView();
 		mav.addObject("userId", userId);
@@ -142,7 +108,13 @@ public class ServiceController {
 	
 	// 계좌 생성 작업 후 성공페이지 이동
 	@PostMapping("/bank/add_account")
-	public ModelAndView addAccount(HttpServletRequest request) {
+	public ModelAndView addAccount(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		HttpSession session = request.getSession(false);
+	    String userId = (String) session.getAttribute("userId");
+	    
+	    // 로그인상태가 아니라면 로그인 화면으로 이동
+	    customerService.checkingLogin(userId, request, response);
 	    
 		// 계좌 타입, 이자율, 한도, 잔액
 		char accType;
@@ -208,7 +180,7 @@ public class ServiceController {
 	    if(userId == null || userId.length() == 0) {
 		    response.setContentType("text/html; charset=UTF-8");
 		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
+		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking';</script>"); // 경고창 띄우기
 		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		    ModelAndView mav = new ModelAndView();
 		    mav.setViewName("/banking/bank");
@@ -244,7 +216,7 @@ public class ServiceController {
 	    if(userId == null || userId.length() == 0) {
 		    response.setContentType("text/html; charset=UTF-8");
 		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
+		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking';</script>"); // 경고창 띄우기
 		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		    ModelAndView mav = new ModelAndView();
 		    mav.setViewName("/banking/bank");
@@ -269,10 +241,14 @@ public class ServiceController {
 	
 	// 이체 작업 후 이체 성공 페이지로 이동
 	@PostMapping("/bank/transfer")
-	public String transfer(TransferCommand transferCommand, Model model, HttpServletRequest request) throws InsufficientBalanceException {
+	public String transfer(TransferCommand transferCommand, Model model, HttpServletRequest request, HttpServletResponse response) throws InsufficientBalanceException, IOException {
 		HttpSession session = request.getSession(false);
 	    String userId = (String) session.getAttribute("userId");
-	    Customer c = customerService.getCustomerByUserId(userId);
+	    
+	    // 로그인상태가 아니라면 로그인 화면으로 이동
+	    customerService.checkingLogin(userId, request, response);
+ 		
+ 		Customer c = customerService.getCustomerByUserId(userId);
 	    
 	    List<Account> accList = accountService.getAccountsByUserId(userId);
 	    String selectStr = "<select name=\"withdrawNum\">";
@@ -323,7 +299,7 @@ public class ServiceController {
 			
 			return "bank/transfer";
 		} else if(a1.getBalance() < amount) {
-			String errMsg3 = "출금 가능한 잔액이 부족합니다.";
+			String errMsg3 = "잔액이 부족합니다.";
 			model.addAttribute("depositNum", depositNum);
 			model.addAttribute("errMsg3", errMsg3);
 			model.addAttribute("selectStr", selectStr);
@@ -369,7 +345,7 @@ public class ServiceController {
 	    if(userId == null || userId.length() == 0) {
 		    response.setContentType("text/html; charset=UTF-8");
 		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
+		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking';</script>"); // 경고창 띄우기
 		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
 		    ModelAndView mav = new ModelAndView();
 		    mav.setViewName("/banking/bank");
@@ -394,7 +370,13 @@ public class ServiceController {
 	
 	// 잔액 확인 작업 후 다시 잔액 확인 페이지로 이동
 	@PostMapping("/bank/checking_balance")
-	public ModelAndView checkingBalance(HttpServletRequest request) {
+	public ModelAndView checkingBalance(HttpServletRequest request, HttpServletResponse response) throws IOException {
+		
+		HttpSession session = request.getSession(false);
+	    String userId = (String) session.getAttribute("userId");
+	    
+	    // 로그인상태가 아니라면 로그인 화면으로 이동
+	    customerService.checkingLogin(userId, request, response);
 		
 		String accountNum = request.getParameter("accountNum");
 		
@@ -421,12 +403,7 @@ public class ServiceController {
 	    String userId = (String) session.getAttribute("userId");
 	    
 	    // 로그인상태가 아니라면 로그인 화면으로 이동
-		if(userId == null || userId.length() == 0) {
-		    response.setContentType("text/html; charset=UTF-8");
-		    PrintWriter writer = response.getWriter();
-		    writer.println("<script>alert('로그인 후 사용 해주시기 바랍니다.'); location.href='/banking/bank';</script>"); // 경고창 띄우기
-		    writer.close(); // close를 해주면 response.reDirect가 안되므로 alert에서 location.href 속성을 사용하여 페이지를 이동시켜준다.
-	    }
+	    customerService.checkingLogin(userId, request, response);
 		
 		List<Account> accList = accountService.getAccountsByUserId(userId);
 	    

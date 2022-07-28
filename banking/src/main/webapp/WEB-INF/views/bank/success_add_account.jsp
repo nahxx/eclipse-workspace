@@ -62,7 +62,7 @@
 		</form>
 	</div>
 	<footer>
-		<p>Copyright &copy; made by <strong>Kim Nahye</strong></p>
+		<p>Copyright &copy; made by <strong>Nana</strong></p>
 	</footer>
 </body>
 </html>
