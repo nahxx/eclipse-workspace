@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ page import="java.net.URLEncoder" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -10,15 +11,17 @@
 </head>
 <body>
 	<header class="header">
-		<h1><a href="service">Banking</a></h1>
-		<ul class="gnb">
-			<li><a href="add_account">계좌생성</a></li>
-			<li><a href="account_list">계좌목록</a></li>
-			<li><a href="transfer">계좌이체</a></li>
-			<li><a href="checking_balance">잔액조회</a></li>
-			<li><a href="checking_interest">이자조회</a></li>
-			<li><a href="logout">로그아웃</a></li>
-		</ul>
+		<jsp:include page="../incl/header.jsp">
+			<jsp:param name="title" value='<%=URLEncoder.encode(\"나나은행\", \"UTF-8\") %>'/>
+		</jsp:include>
+		<jsp:include page="../incl/gnb.jsp">
+			<jsp:param name="add_account" value='<%=URLEncoder.encode(\"계좌생성\", \"UTF-8\") %>'/>
+			<jsp:param name="account_list" value='<%=URLEncoder.encode(\"계좌목록\", \"UTF-8\") %>'/>
+			<jsp:param name="transfer" value='<%=URLEncoder.encode(\"계좌이체\", \"UTF-8\") %>'/>
+			<jsp:param name="getBalance" value='<%=URLEncoder.encode(\"잔액조회\", \"UTF-8\") %>'/>
+			<jsp:param name="getInterest" value='<%=URLEncoder.encode(\"이자조회\", \"UTF-8\") %>'/>
+			<jsp:param name="logout" value='<%=URLEncoder.encode(\"로그아웃\", \"UTF-8\") %>'/>
+		</jsp:include>
 	</header>
 	<div class="wrap">
 		<h3>신규 계좌 신청</h3>
@@ -30,13 +33,18 @@
 			</label>
 			<label>
 				<span>사용자 아이디</span>
-				<input class="userId" type="text" name="userId" value="${userId}" readonly>
+				<input class="readonly" type="text" name="userId" value="${userId}" readonly>
+			</label>
+			<label>
+				<span>초기 입금액</span>
+				<input type="text" name="initBalance">
+				<c:if test="${errMsg1.length() > 0}">
+					<p style="color:red">${errMsg1}</p>
+				</c:if>
 			</label>
 			<input type="submit" value="신규 계좌 신청"/>
 		</form>
 	</div>
-	<footer>
-		<p>Copyright &copy; made by <strong>Nana</strong></p>
-	</footer>
+	<%@ include file="../incl/footer.jsp" %>
 </body>
 </html>

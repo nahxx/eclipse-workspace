@@ -3,28 +3,23 @@ package com.varxyz.banking.mvc.controller;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.util.List;
-import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.varxyz.banking.mvc.dao.CustomerDao;
-import com.varxyz.banking.mvc.dao.Example5Config;
 import com.varxyz.banking.mvc.domain.Account;
-import com.varxyz.banking.mvc.domain.CheckingAccount;
 import com.varxyz.banking.mvc.domain.Customer;
-import com.varxyz.banking.mvc.domain.SavingsAccount;
 import com.varxyz.banking.mvc.exception.InsufficientBalanceException;
 import com.varxyz.banking.mvc.service.AccountService;
+import com.varxyz.banking.mvc.service.BankingServiceImpl;
 import com.varxyz.banking.mvc.service.CustomerService;
 
 @Controller("controller/ServiceController")
@@ -35,6 +30,9 @@ public class ServiceController {
 	
 	@Autowired
 	private CustomerService customerService;
+	
+	@Autowired
+	private BankingServiceImpl bankingServiceImpl;
 	
 	// home 페이지 접속
 	@GetMapping("")
@@ -84,7 +82,10 @@ public class ServiceController {
 	// 회원가입 작업 후 성공페이지 이동
 	@PostMapping("/bank/add_customer")
 	public String addCustomer(Customer customer, Model model) {
-		customerService.addCustomer(customer);
+//		customerService.addCustomer(customer);
+		bankingServiceImpl.addCustomer(customer.getUserId(), customer.getPasswd(), 
+				customer.getName(), customer.getSsn(), customer.getPhone());
+		
 		model.addAttribute("customer", customer); // customerCommand를 attribute에 추가함
 		
 		return "bank/success_add_customer";
@@ -117,6 +118,7 @@ public class ServiceController {
 	    customerService.checkingLogin(userId, request, response);
 	    
 		// 계좌 타입, 이자율, 한도, 잔액
+/*
 		char accType;
 		double balance = 0;
 		double interestRate = 0.0;
@@ -159,6 +161,29 @@ public class ServiceController {
 		account.setBalance(balance);
 		account.setCustomer(customer);
 		accountService.addAccount(account);
+*/
+	    String accountType = request.getParameter("accType");
+	    Customer customer = customerService.getCustomerByUserId(request.getParameter("userId"));
+	    
+	    if(request.getParameter("initBalance") == null || request.getParameter("initBalance").length() == 0) {
+	    	String errMsg = "초기 입금액을 입력해주세요.";
+	    	ModelAndView mav = new ModelAndView();
+			mav.addObject("errMsg1", errMsg);
+			mav.setViewName("bank/add_account");
+			
+			return mav;		
+	    }
+	    
+	    double initBalance = Double.valueOf(request.getParameter("initBalance"));
+	    
+	    char accType;
+	    if(request.getParameter("accType").equals("SavingsAccount")) {
+			accType = 'S';
+		} else {
+			accType = 'C';
+		}
+	    
+	    Account account = bankingServiceImpl.addAccount(accType, customer.getUserId(), initBalance);
 		
 		// jsp로 연결
 		ModelAndView mav = new ModelAndView();
@@ -190,7 +215,8 @@ public class ServiceController {
 	    
 	    String name = customerService.getCustomerByUserId(userId).getName();
 	    
-	    List<Account> list = accountService.getAccountsByUserId(userId);
+//	    List<Account> list = accountService.getAccountsByUserId(userId);
+	    List<Account> list = bankingServiceImpl.getAccounts(userId);
 		String accountList = "<table><tr><th>No.</th><th>계좌번호</th><th>잔액</th></tr>";
 		int i = 1;
 		for(Account a : list) {
@@ -224,7 +250,7 @@ public class ServiceController {
 			return mav;
 	    }
 	    
-	    List<Account> accList = accountService.getAccountsByUserId(userId);
+	    List<Account> accList = bankingServiceImpl.getAccounts(userId);
 	    
 	    String selectStr = "<select name=\"withdrawNum\">";
 	    for(Account a : accList) {
@@ -250,62 +276,71 @@ public class ServiceController {
  		
  		Customer c = customerService.getCustomerByUserId(userId);
 	    
-	    List<Account> accList = accountService.getAccountsByUserId(userId);
+	    List<Account> accList = bankingServiceImpl.getAccounts(userId);
 	    String selectStr = "<select name=\"withdrawNum\">";
 	    for(Account a : accList) {
 	    	selectStr += "<option value=\"" + a.getAccountNum() + "\">" + a.getAccountNum() + "</option>";
 	    }
 	    selectStr += "</select>";
-	    
-		if(transferCommand.getDepositNum() == null) {
-			String errMsg2 = "입금할 계좌번호를 입력해 주세요.";
-			model.addAttribute("errMsg2", errMsg2);
-			model.addAttribute("selectStr", selectStr);
-			
-			return "bank/transfer";
-		} else if(transferCommand.getAmount() == 0.0) {
-			String errMsg3 = "입금할 금액을 입력해 주세요.";
-			model.addAttribute("errMsg3", errMsg3);
-			model.addAttribute("selectStr", selectStr);
-			
-			return "bank/transfer";
-		} else if(transferCommand.getPasswd() == null) {
-			String errMsg4 = "비밀번호를 입력해 주세요.";
-			model.addAttribute("errMsg4", errMsg4);
-			model.addAttribute("selectStr", selectStr);
-			
-			return "bank/transfer";
-		}
 		
 		String withdrawNum = transferCommand.getWithdrawNum();
 		String depositNum = transferCommand.getDepositNum();
 		double amount = transferCommand.getAmount();
 		String passwd = transferCommand.getPasswd();
 	    
-		Account a1 = null;
+		Account a1 = accountService.getAccountByAccountNum(withdrawNum);
 		
-		// 출금할 계좌
-		a1 = accountService.getAccountByAccountNum(withdrawNum);
+		// 유효성 검사
 		if(withdrawNum.equals(depositNum)) {
 			String errMsg2 = "같은 계좌로는 입금할 수 없습니다.<br>입금할 계좌번호를 변경해주세요.";
 			model.addAttribute("errMsg2", errMsg2);
 			model.addAttribute("selectStr", selectStr);
 			
 			return "bank/transfer";
-		} else if(!accountService.isValidAccountByAccountNum(depositNum)) {
+		}
+		/*else if(!accountService.isValidAccountByAccountNum(depositNum)) {
 			String errMsg2 = "존재하지 않는 계좌번호 입니다. <br> 다시 입력해 주세요.";
 			model.addAttribute("errMsg2", errMsg2);
 			model.addAttribute("selectStr", selectStr);
 			
 			return "bank/transfer";
-		} else if(a1.getBalance() < amount) {
+		}*/ else if(depositNum == null || depositNum.length() == 0) {
+			String errMsg2 = "입금할 계좌번호를 입력해주세요.";
+			model.addAttribute("errMsg2", errMsg2);
+			model.addAttribute("selectStr", selectStr);
+			
+			return "bank/transfer";
+		}
+		/*else if(amount == 0) {
+			String errMsg3 = "입금액을 입력해주세요.";
+			model.addAttribute("depositNum", depositNum);
+			model.addAttribute("errMsg3", errMsg3);
+			model.addAttribute("selectStr", selectStr);
+			
+			return "bank/transfer";
+		}*/ else if(amount < 0) {
+			String errMsg3 = "입금액이 잘못되었습니다. 다시 입력해 주세요.";
+			model.addAttribute("depositNum", depositNum);
+			model.addAttribute("errMsg3", errMsg3);
+			model.addAttribute("selectStr", selectStr);
+			
+			return "bank/transfer";
+		}  else if(a1.getBalance() < amount) {
 			String errMsg3 = "잔액이 부족합니다.";
 			model.addAttribute("depositNum", depositNum);
 			model.addAttribute("errMsg3", errMsg3);
 			model.addAttribute("selectStr", selectStr);
 			
 			return "bank/transfer";
-		} else if(!c.getPasswd().equals(passwd)) {
+		}/* else if(passwd == null || passwd.length() == 0) {
+			String errMsg4 = "비밀번호를 입력해 주세요.";
+			model.addAttribute("depositNum", depositNum);
+			model.addAttribute("amount", (int)amount);
+			model.addAttribute("errMsg4", errMsg4);
+			model.addAttribute("selectStr", selectStr);
+			
+			return "bank/transfer";
+		}*/ else if(!c.getPasswd().equals(passwd)) {
 			String errMsg4 = "비밀번호가 틀렸습니다. 다시 입력해 주세요.";
 			model.addAttribute("depositNum", depositNum);
 			model.addAttribute("amount", (int)amount);
@@ -321,10 +356,8 @@ public class ServiceController {
 		// 출금 후 금액
 		double after = 0;
 		
-		// 입금할 계좌
-		Account a2 = accountService.getAccountByAccountNum(depositNum); // 입금할 계좌
-		
-		accountService.transferAmount(a1, a2, amount);
+		// 이체 작업
+		bankingServiceImpl.transfer(amount, withdrawNum, depositNum);
 		
 		after = a1.getBalance();
 		

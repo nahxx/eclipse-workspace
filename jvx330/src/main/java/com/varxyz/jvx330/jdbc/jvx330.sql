@@ -35,6 +35,9 @@ CREATE TABLE Account(
 
 SELECT * FROM Account;
 
+DELETE FROM Account;
+
+
 INSERT INTO Account(accountNum, accType, balance, interestRate, overAmount, customerId) 
 VALUES ('111-11-1111', 'S', 10000, 0.1, 0.0, 1001);
 

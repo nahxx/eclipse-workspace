@@ -24,6 +24,7 @@ public class AccountService {
 	@Autowired
 	AccountDao accountdao;
 	
+	// 오퍼레이션명 addAccount
 	public void addAccount(Account account) {
 		accountdao.addAccount(account);
 	}
@@ -72,6 +73,11 @@ public class AccountService {
 			ca.deposite(amount);
 			updateBalance(ca);
 		}
+	}
+	
+	// 오퍼레이션명 saveInterest
+	public void saveInterest(String AccountNum) {
+		// 이자 지급 구현하는 곳
 	}
 	
 }

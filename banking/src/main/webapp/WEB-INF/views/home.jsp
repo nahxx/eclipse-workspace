@@ -10,10 +10,10 @@
 </head>
 <body>
 	<header class="header">
-		<h1><a href="/banking">Banking</a></h1>
+		<h1><a href="/banking">나나은행</a></h1>
 	</header>
 	<div class="wrap login-wrap">
-		<h3>나나은행</h3>
+		<h3>로그인</h3>
 		<form action="login" method="post" class="login">
 			<label>
 				<span>아이디</span>
@@ -28,9 +28,9 @@
 			</c:if>
 			<input type="submit" value="로그인"/>
 		</form>
-		<form action="bank/add_customer" method="get" class="signin">
-			<input type="submit" value="회원가입"/>
-		</form>
+		<div class="signin">
+			<button class="btn" onclick="location.href='bank/add_customer'">회원가입</button>
+		</div>
 	</div>
 	<footer>
 		<p>Copyright &copy; made by <strong>Nana</strong></p>

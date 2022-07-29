@@ -10,7 +10,7 @@
 </head>
 <body>
 	<header class="header">
-		<h1><a href="service">Banking</a></h1>
+		<h1><a href="service">나나은행</a></h1>
 	</header>
 	<div class="wrap">
 		<h3>회원가입 성공</h3>

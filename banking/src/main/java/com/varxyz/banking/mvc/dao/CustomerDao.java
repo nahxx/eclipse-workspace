@@ -70,5 +70,27 @@ public class CustomerDao {
 		return true;
 		
 	}
+	
+	public boolean isValidUserId(String userId) {
+		String sql = "SELECT * FROM Customer WHERE userId = ?";
+		List<Customer> list = jdbcTemplate.query(sql, new RowMapper<Customer>() {
+
+			@Override
+			public Customer mapRow(ResultSet rs, int rowNum) throws SQLException {
+				Customer customer = null;
+				if(rowNum > 0) {
+					customer = new Customer();
+					customer.setUserId(rs.getString("userId"));
+				}
+				return customer;
+			}
+		}, userId);
+		
+		if(list.size() == 0) {
+			return false;
+		}
+		return true;
+		
+	}
 
 }
