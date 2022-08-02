@@ -10,7 +10,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan(basePackages = "com.varxyz.banking.mvc")
+@ComponentScan(basePackages = "com.varxyz.cafe")
 public class WebMVCConfig implements WebMvcConfigurer {
 	
 	/**

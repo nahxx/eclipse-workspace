@@ -16,4 +16,8 @@ public class MenuItem {
 	private Double price; // 메뉴 가격
 	private String imageUrl; // 메뉴이미지 경로
 	private Date regDate;
+	
+	public MenuItem() {
+		
+	}
 }

@@ -5,8 +5,8 @@ DROP TABLE MenuItem;
 -- Category 테이블 생성
 CREATE TABLE Category (
 	cid			BIGINT			PRIMARY KEY AUTO_INCREMENT,
-	cateName	VARCHAR(10)		NOT NULL,
 	cateType	VARCHAR(10)		NOT NULL,
+	cateName	VARCHAR(10)		NOT NULL,
 	regDate		TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP
 )AUTO_INCREMENT = 1001;
 
@@ -15,7 +15,7 @@ CREATE TABLE MenuItem (
 	mid			BIGINT			PRIMARY KEY AUTO_INCREMENT,
 	name		VARCHAR(20)		NOT NULL,
 	price		DOUBLE			NOT NULL DEFAULT 0.0,
-	imageUrl	VARCHAR(100)	NOT NULL,
+	imageUrl	VARCHAR(100)		NULL DEFAULT '',
 	cid			BIGINT			NOT NULL, -- 외래키
 	regDate		TIMESTAMP		NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	
@@ -23,7 +23,8 @@ CREATE TABLE MenuItem (
 )AUTO_INCREMENT = 1001;
 
 -- 임시 데이터
-INSERT INTO Category (cateName, cateType) values ('커피', '음료');
-INSERT INTO Category (cateName, cateType) values ('차', '음료');
-INSERT INTO Category (cateName, cateType) values ('프라푸치노', '음료');
-INSERT INTO Category (cateName, cateType) values ('딸기케익', '디저트');
+INSERT INTO Category (cateType, cateName) values ('커피', '카페인');
+INSERT INTO Category (cateType, cateName) values ('커피', '디카페인');
+INSERT INTO Category (cateType, cateName) values ('차', '차');
+INSERT INTO Category (cateType, cateName) values ('차', 'ONLY ICE');
+INSERT INTO Category (cateType, cateName) values ('프라푸치노', '프라푸치노');
