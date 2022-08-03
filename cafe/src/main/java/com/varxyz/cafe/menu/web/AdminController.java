@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -18,10 +19,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.protobuf.compiler.PluginProtos.CodeGeneratorResponse.File;
 import com.varxyz.cafe.menu.domain.MenuCategory;
 import com.varxyz.cafe.menu.domain.MenuItem;
 import com.varxyz.cafe.menu.service.CategoryService;
+import com.varxyz.cafe.menu.service.MenuItemService;
 import com.varxyz.cafe.menu.service.MenuItemService;
 
 @Controller("menu.web.AdminController")
@@ -96,6 +97,7 @@ public class AdminController {
 		List<MenuCategory> cateList = cateService.getAllCategorys();
 		ModelAndView mav = new ModelAndView();
 		mav.addObject("cateList", cateList);
+		mav.addObject("list", menuList);
 		mav.setViewName("admin/add_menu");
 		
 		return mav;
@@ -139,14 +141,16 @@ public class AdminController {
 	// 메뉴 추가하기
 	@PostMapping("/admin/add_menu")
 	public String addCategory(HttpServletRequest request, HttpServletResponse response, 
-			@RequestParam("imageFile") MultipartFile file) throws IOException {
-		System.out.println(file.getOriginalFilename());
-		CategoryCommand cate = new CategoryCommand();
-		cate.setCateType(request.getAttribute("cateType"));
-		MenuItemCommand command = new MenuItemCommand(, 
-				request.getAttribute("name"), request.getAttribute("price"), file);
+			@RequestParam("imageFile") MultipartFile imageFile) throws IOException {
 		
+		
+		CategoryCommand cate = new CategoryCommand();
+		cate.setCateType(request.getParameter("cateType"));
+		cate.setCateName(request.getParameter("cateName"));
+		MenuItemCommand command = new MenuItemCommand(cate,
+				(String)request.getParameter("name"), Double.parseDouble(request.getParameter("price")), imageFile);
 		menuService.addMenuItem(command);
+		
 		List<MenuItem> list = menuService.getAllMenuItems();
 		request.setAttribute("list", list);
 		

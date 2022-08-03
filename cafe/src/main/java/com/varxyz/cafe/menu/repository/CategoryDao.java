@@ -56,4 +56,19 @@ public class CategoryDao {
 		String sql = "SELECT cid, cateType, cateName, regDate FROM Category WHERE cid=?";
 		return jdbcTemplate.queryForObject(sql, new CategoryRowMapper(), cid);
 	}
+	
+	public List<MenuCategory> findAllCategoryTypes() {
+		String sql = "SELECT cateType, cid FROM Category GROUP BY cateType";
+		return jdbcTemplate.query(sql, new RowMapper<MenuCategory>() {
+
+			@Override
+			public MenuCategory mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MenuCategory category = new MenuCategory();
+				category.setCateType(rs.getString("cateType"));
+				category.setCid(rs.getLong("cid"));
+				
+				return category;
+			}
+		});
+	}
 }

@@ -34,4 +34,8 @@ public class CategoryService {
 	public MenuCategory getCategoryByCid(long cid) {
 		return cateDao.findCategoryByCid(cid);
 	}
+	
+	public List<MenuCategory> getAllCategoryTypes() {
+		return cateDao.findAllCategoryTypes();
+	}
 }

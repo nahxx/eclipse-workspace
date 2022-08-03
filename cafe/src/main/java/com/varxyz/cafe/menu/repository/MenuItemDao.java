@@ -1,10 +1,13 @@
 package com.varxyz.cafe.menu.repository;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.List;
 
 import org.apache.tomcat.jdbc.pool.DataSource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 
 import com.varxyz.cafe.menu.domain.MenuItem;
@@ -20,24 +23,33 @@ public class MenuItemDao {
 	}
 	
 	public void addMenuItem(MenuItem menuItem) {
-		String sql = "INSERT INTO MenuItem (name, price, cid, image) "
+		String sql = "INSERT INTO MenuItem (name, price, cid, imageUrl) "
 				+ "VALUES (?, ?, ?, ?)";
 		
 		jdbcTemplate.update(sql, menuItem.getName(), menuItem.getPrice(), 
 				menuItem.getMenuCategory().getCid(), menuItem.getImageUrl());
-		
-		/*
-		 * 이미지 포함 쿼리
-		String sql = "INSERT INTO MenuItem (name, price, imageUrl, cid) "
-				+ "VALUES (?, ?, ?, ?)";
-		
-		jdbcTemplate.update(sql, menuItem.getName(), menuItem.getPrice(), 
-				menuItem.getImageUrl(), menuItem.getMenuCategory().getCid());
-		*/
 	}
 	
 	public List<MenuItem> findAllMenuItems() {
 		String sql = "SELECT mid, name, price, imageUrl, cid, regDate FROM MenuItem";
 		return jdbcTemplate.query(sql, new MenuItemRowMapper());
 	}
+	
+	public List<MenuItem> findMenuItemsByCid(long cid) {
+		String sql = "SELECT name, price, imageUrl FROM MenuItem WHERE cid = ?";
+		return jdbcTemplate.query(sql, new RowMapper<MenuItem>() {
+
+			@Override
+			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
+				MenuItem menuItem = new MenuItem();
+				menuItem.setName(rs.getString("name"));
+				menuItem.setPrice(rs.getDouble("price"));
+				menuItem.setImageUrl(rs.getString("imageUrl"));
+				
+				return menuItem;
+			}
+			
+		}, cid);
+	}
+	
 }

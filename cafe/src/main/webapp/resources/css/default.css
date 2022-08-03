@@ -1,1 +1,203 @@
 @charset "UTF-8";
+@font-face {
+    font-family: 'NanumSquareRound';
+    src: url('https://cdn.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/NanumSquareRound.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+}
+:root {
+	--headerHeight: 100px;
+	--footerHeight: 60px;
+}
+
+html, body {
+	margin: 0;
+	padding: 0;
+	font-family: 'NanumSquareRound';
+}
+ul, li {
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+h1, h2, h3, h4, h5 {
+	text-align: center;
+	margin: 0;
+}
+
+a {
+	text-decoration: none;
+	color: #222;
+}
+
+/* 공통 */
+.btn, input[type="submit"] {
+	display: block;
+	width: 180px;
+	height: 50px;
+	margin: 0 auto;
+	margin-top: 100px;
+	border-radius: 25px;
+	border-style: none;
+	border: 1px solid khaki;
+	background: khaki;
+	font-size: 18px;
+	font-weight: 700;
+	font-family: 'NanumSquareRound';
+}
+
+.btn a {
+	color: white;
+}
+
+.btn:hover, input[type="submit"]:hover {
+	background: white;
+	border: 1px solid khaki;
+	cursor: pointer;
+}
+
+.btn:hover a {
+	color: #222;
+}
+
+h3 {
+	font-size: 30px;
+	margin-top: 100px;
+}
+
+/* 헤더 */
+header#header {
+	height: var(--headerHeight);
+	background: khaki;
+}
+
+header#header h1 {
+	line-height: var(--headerHeight);
+}
+
+header#order-header {
+	width: 100%;
+	position: fixed;
+}
+
+header#order-header h1 {
+	line-height: 50px;
+	background: khaki;
+}
+
+/* GNB */
+.gnb {
+	float: right;
+	overflow: hidden;
+	margin: -65px 50px 0 0;
+}
+
+.gnb li {
+	float: left;
+}
+
+.gnb li a {
+	font-size: 20px;
+	font-weight: bold;
+}
+
+.gnb li a:hover {
+	color: GoldenRod;
+}
+
+.gnb li + li {
+	margin-left: 20px;
+}
+
+/* 홈 */
+.home {
+	width: 100vw;
+	height: 100vh;
+	background: khaki;
+}
+
+header#home-header h1 {
+	padding-top: 100px;
+	box-sizing: border-box;
+}
+
+header#home-header h1 a {
+	font-size: 80px;
+	font-weight: bold;
+}
+
+.btn.order, .btn.admin {
+	margin-top: 150px;
+	background: white;
+}
+
+.btn.order:hover, .btn.admin:hover {
+	background: olive;
+}
+
+.btn.order a, .btn.admin a {
+	color: #222;
+	display: block;
+    width: 100%;
+    height: 100%;
+    line-height: 50px
+}
+
+.btn.order:hover a, .btn.admin:hover a {
+	color: white;
+}
+
+/* 관리자 서비스 */
+.service-box {
+	margin-top: 180px;
+}
+
+/* 카테고리 추가, 메뉴 추가 */
+form.add-cate, form.add-menu {
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 150px;
+	text-align: center;
+}
+
+.add-cate label, .add-menu label {
+	font-weight: 700;
+	font-size: 20px;
+	display: block;
+}
+
+.add-cate label span, .add-menu label span {
+	width: 250px;
+	height: 50px;
+	display: inline-block;
+	text-align: left;
+}
+
+.add-cate label + label, .add-menu label + label {
+	margin-top: 30px;
+}
+
+select, input[type="text"] {
+	width: 250px;
+	height: 40px;
+}
+
+input[type="file"] {
+	width: 260px;
+	height: 40px;
+}
+
+.cate-table, .menu-table {
+	width: 800px;
+	margin: 0 auto;
+	margin-top: 150px;
+	margin-bottom: 60px;
+	text-align: center;
+	border: 1px solid GoldenRod;
+	border-collapse: collapse;
+}
+
+.cate-table th, .cate-table td, .menu-table th, .menu-table td {
+	border: 1px solid GoldenRod;
+	height: 30px;
+}

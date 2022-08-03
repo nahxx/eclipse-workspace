@@ -9,12 +9,10 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
 </head>
 <body>
-	<header id="header">
-		<jsp:include page="../incl/admin_header.jsp">
-			<jsp:param name="category_service" value='<%=URLEncoder.encode(\"카테고리 관리\", \"UTF-8\") %>'/>
-			<jsp:param name="menu_service" value='<%=URLEncoder.encode(\"메뉴 관리\", \"UTF-8\") %>'/>
-		</jsp:include>
-	</header>
+	<jsp:include page="../incl/admin_header.jsp">
+		<jsp:param name="category_service" value='<%=URLEncoder.encode(\"카테고리 관리\", \"UTF-8\") %>'/>
+		<jsp:param name="menu_service" value='<%=URLEncoder.encode(\"메뉴 관리\", \"UTF-8\") %>'/>
+	</jsp:include>
 	<div class="wrap">
 		<h3>관리자 서비스</h3>
 		<div class="service-box">

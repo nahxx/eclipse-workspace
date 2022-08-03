@@ -28,3 +28,7 @@ INSERT INTO Category (cateType, cateName) values ('커피', '디카페인');
 INSERT INTO Category (cateType, cateName) values ('차', '차');
 INSERT INTO Category (cateType, cateName) values ('차', 'ONLY ICE');
 INSERT INTO Category (cateType, cateName) values ('프라푸치노', '프라푸치노');
+
+UPDATE MenuItem SET name='카라멜 마끼야또' WHERE mid=1005;
+
+SELECT name, price, imageUrl FROM MenuItem AS m INNER JOIN Category AS c ON m.cid = c.cid WHERE  c.cateType = ?

@@ -10,15 +10,13 @@
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
 </head>
 <body>
-	<header id="header">
-		<jsp:include page="../incl/admin_header.jsp">
-			<jsp:param name="category_service" value='<%=URLEncoder.encode(\"카테고리 관리\", \"UTF-8\") %>'/>
-			<jsp:param name="menu_service" value='<%=URLEncoder.encode(\"메뉴 관리\", \"UTF-8\") %>'/>
-		</jsp:include>
-	</header>
+	<jsp:include page="../incl/admin_header.jsp">
+		<jsp:param name="category_service" value='<%=URLEncoder.encode(\"카테고리 관리\", \"UTF-8\") %>'/>
+		<jsp:param name="menu_service" value='<%=URLEncoder.encode(\"메뉴 관리\", \"UTF-8\") %>'/>
+	</jsp:include>                                                                                                                                                                                      
 	<div class="wrap">
 		<h3>카테고리 추가</h3>
-		<form:form method="post" modelAttribute="category">
+		<form:form class="add-cate" method="post" modelAttribute="category">
 			<label>
 				<span>대분류</span>
 				<form:input path="cateType" />
@@ -30,22 +28,24 @@
 			<input type="submit" value="추가하기" />
 		</form:form>
 		
-		<table>
-			<tr>
-				<th>No.</th>
-				<th>대분류</th>
-				<th>중분류</th>
-				<th>등록시간</th>
-			</tr>
-			<c:forEach var="cate" items="${list}">
+		<c:if test="${list.size() > 0}">
+			<table class="cate-table">
 				<tr>
-					<td>${cate.cid}</td>
-					<td>${cate.cateType}</td>
-					<td>${cate.cateName}</td>
-					<td>${cate.regDate }</td>
+					<th>No.</th>
+					<th>대분류</th>
+					<th>중분류</th>
+					<th>등록시간</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach var="cate" items="${list}">
+					<tr>
+						<td>${cate.cid}</td>
+						<td>${cate.cateType}</td>
+						<td>${cate.cateName}</td>
+						<td>${cate.regDate }</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
 	</div>
 </body>
 </html>

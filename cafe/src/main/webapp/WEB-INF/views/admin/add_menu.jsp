@@ -17,7 +17,7 @@
 	</header>
 	<div class="wrap">
 		<h3>메뉴 추가</h3>
-		<form action="add_menu" method="post" enctype="multipart/form-data">
+		<form class="add-menu" action="add_menu" method="post" enctype="multipart/form-data">
 			<label>
 				<span>대분류</span>
 				<select name="cateType">
@@ -28,7 +28,7 @@
 			</label>
 			<label>
 				<span>중분류</span>
-				<select name="cateType">
+				<select name="cateName">
 					<c:forEach var="cate" items="${cateList}">
 						<option value="${cate.cateName}">${cate.cateName}</option>
 					</c:forEach>
@@ -48,28 +48,31 @@
 			</label>
 			<input type="submit" value="추가하기" />
 		</form>
-		<table>
-			<tr>
-				<th>No.</th>
-				<th>대분류</th>
-				<th>중분류</th>
-				<th>이름</th>
-				<th>금액</th>
-				<th>이미지</th>
-				<th>등록시간</th>
-			</tr>
-			<c:forEach var="menu" items="${list}">
+		
+		<c:if test="${list.size() > 0}">
+			<table class="menu-table">
 				<tr>
-					<td>${menu.mid}</td>
-					<td>${menu.menuCategory.cateType}</td>
-					<td>${menu.menuCategory.cateName}</td>
-					<td>${menu.name}</td>
-					<td>${menu.price}</td>
-					<td>${menu.imageUrl}</td>
-					<td>${menu.regDate}</td>
+					<th>No.</th>
+					<th>대분류</th>
+					<th>중분류</th>
+					<th>이름</th>
+					<th>금액</th>
+					<th>이미지</th>
+					<th>등록시간</th>
 				</tr>
-			</c:forEach>
-		</table>
+				<c:forEach var="menu" items="${list}">
+					<tr>
+						<td>${menu.mid}</td>
+						<td>${menu.menuCategory.cateType}</td>
+						<td>${menu.menuCategory.cateName}</td>
+						<td>${menu.name}</td>
+						<td>${menu.price}</td>
+						<td><img style="width:100px" alt="${menu.name}" src="<c:url value="/resources/images/${menu.imageUrl}"/>"></td>
+						<td>${menu.regDate}</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</c:if>
 	</div>
 </body>
 </html>
