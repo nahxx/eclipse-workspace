@@ -20,7 +20,7 @@
 			<div class="category-wrap">
 				<c:forEach var="category" items="${cateList}">
 					<div class="cate-box ${category.cid}">
-						<a href="older/order_service/${category.cateType}">
+						<a href="${category.cid}">
 							${category.cateType}
 						</a>
 					</div>
@@ -30,9 +30,9 @@
 			<h3>메뉴를 선택해주세요.</h3>
 			<div class="menu-box">
 				<c:forEach var="menu" items="${list}">
-					<div class="menu-item">
+					<div class="menu-item" onclick="javascript:sendPost('<c:url value="/order/select_menu"/>', ${menu.mid}, ${cid});" >
 						<img alt="${menu.name}" src="<c:url value="/resources/images/${menu.imageUrl}"/>"/>
-						<p><span>${menu.name}</span><br>${menu.price}</p>
+						<p><span>${menu.name}</span><br>${menu.price.intValue()}원</p>
 					</div>
 				</c:forEach>
 				<c:if test="${size % 4 < 4}">
@@ -47,18 +47,112 @@
 
 		<!-- 장바구니/ 결제 부분 -->
 		<div class="cart-wrap">
-			장바구니/결제
+			<div class="cart-box">
+				<h5>주문 목록</h5>
+				<table>
+					<tr>
+						<th>메뉴</th>
+						<th>수량</th>
+						<th>금액</th>
+						<th>비고</th>
+					</tr>
+					<c:forEach var="list" items="${cart.cartList}">
+						<tr>
+							<td>${list.menuItem.name}(${list.hotOrIce})</td>
+							<td>
+								<c:if test="${list.amount < 0}">
+									<button class="mop disabled" onclick="location.href='<c:url value="/order/count_amount/${list.menuItem.name}/${list.hotOrIce}/0"/>'">-</button>
+								</c:if>
+								<c:if test="${list.amount > 1}">
+									<button class="mop" onclick="location.href='<c:url value="/order/count_amount/${list.menuItem.name}/${list.hotOrIce}/0"/>'">-</button>
+								</c:if>
+								${list.amount}
+								<button  class="mop" onclick="location.href='<c:url value="/order/count_amount/${list.menuItem.name}/${list.hotOrIce}/1"/>'">+</button>
+							</td>
+							<td>${list.sumPrice.intValue()}</td>
+							<td><button class="remove" onclick="location.href='<c:url value="/order/remove_item/${list.menuItem.name}/${list.hotOrIce}"/>'">삭제</button></td>
+						</tr>
+					</c:forEach>
+				</table>
+			</div>
 		</div>
+
+		<!-- 메뉴 담기 선택창 영역 -->
+		<c:if test="${not empty menuItem}">
+			<div class="select-option">
+				<button class="btn-close" type="button"></button>
+				<img alt="${menuItem.name}" src="<c:url value="/resources/images/${menuItem.imageUrl}"/>"/>
+				<p>
+					<strong>${menuItem.name}</strong><br>
+					${menuItem.price.intValue()}원
+				</p>
+				<form action="<c:url value="/order/add_cart"/>" method="post">
+					<c:if test="${cid eq 1005}">
+						<label class="radio on"><input type="radio" name="hotOrIce" value="ICE" checked />ICE</label>
+					</c:if>
+					<c:if test="${cid ne 1005}">
+						<label class="radio on"><input type="radio" name="hotOrIce" value="HOT" checked />HOT</label>
+						<label class="radio"><input type="radio" name="hotOrIce" value="ICE" />ICE</label>
+					</c:if>
+					<label class="amount"><span>수량</span><input type="text" name="amount" value="1"/>&nbsp;개</label>
+					<input type="submit" value="담기"/>
+				</form>
+			</div>
+		</c:if>
 	</div>
-	<!--
+
 	<script>
-		$(function) {
-			$('.cate-box').click(function() {
-				$('.cate-box').removeClass("on");
-				$(this).addClass("on");
+		$(function() {
+			// 카테고리 선택 css 적용
+			$('.cate-box').each(function() {
+				if($(this).hasClass("${cid}")) {
+					$(this).addClass("on");
+				}else {
+					$(this).removeClass("on");
+				}
 			});
+			
+			// 옵션 선택 css 적용
+			$('.radio').click(function() {
+	    		  $('input[type=radio]').removeAttr("checked");
+	    		  $(this).find('input[type=radio]').attr("checked", "checked");
+	    		  $('.radio').removeClass("on");
+	    		  $(this).addClass("on");
+			});
+			
+			// 옵션 창 닫기 css 적용
+			$('.btn-close').click(function() {
+	    		$('.select-option').css("display", "none");
+	    	});
+		});
+		
+		// 폼 생성 후 컨트롤러로 넘어가기
+		function sendPost(url, mid, cid) {
+			// 폼 생성
+			console.log(url);
+			let form = document.createElement('form');
+			form.setAttribute('method', 'post');
+			form.setAttribute('action', url);
+			document.charset = "UTF-8";
+			
+			// input1 추가
+			let hiddenField1 = document.createElement("input");
+			hiddenField1.setAttribute('type', 'hidden');
+			hiddenField1.setAttribute('name', 'mid');
+			hiddenField1.setAttribute('value', mid);
+			form.appendChild(hiddenField1);
+			
+			// input2 추가
+			let hiddenField2 = document.createElement("input");
+			hiddenField2.setAttribute('type', 'hidden');
+			hiddenField2.setAttribute('name', 'cid');
+			hiddenField2.setAttribute('value', cid);
+			form.appendChild(hiddenField2);
+			
+			document.body.appendChild(form);
+			form.submit();
 		}
 	</script>
-	-->
+
 </body>
 </html>

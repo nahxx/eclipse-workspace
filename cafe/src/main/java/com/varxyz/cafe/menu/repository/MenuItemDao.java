@@ -36,20 +36,13 @@ public class MenuItemDao {
 	}
 	
 	public List<MenuItem> findMenuItemsByCid(long cid) {
-		String sql = "SELECT name, price, imageUrl FROM MenuItem WHERE cid = ?";
-		return jdbcTemplate.query(sql, new RowMapper<MenuItem>() {
-
-			@Override
-			public MenuItem mapRow(ResultSet rs, int rowNum) throws SQLException {
-				MenuItem menuItem = new MenuItem();
-				menuItem.setName(rs.getString("name"));
-				menuItem.setPrice(rs.getDouble("price"));
-				menuItem.setImageUrl(rs.getString("imageUrl"));
-				
-				return menuItem;
-			}
-			
-		}, cid);
+		String sql = "SELECT mid, name, price, imageUrl, cid, regDate FROM MenuItem WHERE cid = ?";
+		return jdbcTemplate.query(sql, new MenuItemRowMapper(), cid);
+	}
+	
+	public MenuItem findMenuItemByMid(long mid) {
+		String sql = "SELECT mid, name, price, imageUrl, cid, regDate FROM MenuItem WHERE mid = ?";
+		return jdbcTemplate.queryForObject(sql, new MenuItemRowMapper(), mid);
 	}
 	
 }

@@ -70,4 +70,8 @@ public class MenuItemService {
 	public List<MenuItem> getMenuItemsByCid(long cid) {
 		return menuDao.findMenuItemsByCid(cid);
 	}
+	
+	public MenuItem getMenuItemByMid(long mid) {
+		return menuDao.findMenuItemByMid(mid);
+	}
 }

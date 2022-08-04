@@ -9,13 +9,94 @@
 	width: 70%;
 }
 
+/* 장바구니/결제 영역 */
 .cart-wrap {
 	position: fixed;
 	top: 100px;
 	right: 0;
 	width: 30%;
 	box-sizing: border-box;
-	background: skyblue;
+	background: white;
+}
+
+.cart-box {
+	width: 100%;
+	height: 60%;
+	border: 1px solid #f1f1f1;
+	z-index: 100;
+}
+
+.cart-box h5 {
+	display: block;
+	line-height: 40px;
+	font-size: 18px;
+	border-bottom: 1px solid #f1f1f1;
+	background: darkkhaki;
+	color: white;
+}
+
+.cart-box table {
+	width: 100%;
+	border: 0px solid darkkhaki;
+	border-collapse: collapse;
+}
+
+.cart-box table th:nth-child(1), .cart-box table td:nth-child(1) {
+	width: 40%;
+}
+
+.cart-box table th:nth-child(2), .cart-box table td:nth-child(2) {
+	width: 20%;
+	text-align: center;
+}
+
+.cart-box table th:nth-child(3), .cart-box table td:nth-child(3) {
+	width: 30%;
+	text-align: right;
+	padding-right: 20px;
+	box-sizing: border-box;
+}
+
+.cart-box table th:nth-child(4), .cart-box table td:nth-child(4) {
+	width: 10%;
+}
+
+.cart-box table th {
+	margin: 10px 0;
+}
+
+.cart-box table td {
+	font-size: 20px;
+	line-height: 30px;
+}
+
+.cart-box table tr:nth-child(1) {
+	border: 1px solid khaki;
+	background: khaki;
+	color: gray;
+}
+
+.cart-box .mop {
+	width: 25px;
+    height: 25px;
+    border-radius: 5px;
+	border: none;
+	background: darkkhaki;
+	color: white;
+	visibility: visible;
+}
+
+.cart-box .mop.disabled {
+	visibility: hidden;
+}
+
+.cart-box .remove {
+	width: 40px;
+    height: 25px;
+    border-radius: 10px;
+	border: none;
+	background: darkkhaki;
+	color: white;
 }
 
 /* 카테고리 선택 */
@@ -30,8 +111,11 @@
 	margin-top: 100px;
 	flex: 20%;
 	height: 40px;
-	border: 1px solid darkkhaki;
-	background: white;
+	border: 1px solid white;
+	background: darkkhaki;
+}
+.cate-box + .cate-box {
+	border-left: 0px solid white;
 }
 
 .cate-box a {
@@ -45,11 +129,11 @@
 }
 
 .cate-box:hover, .cate-box.on {
-	background: darkkhaki;
+	background: white;
 }
 
 .cate-box:hover a, .cate-box.on a {
-	color: white;
+	color: #222;
 }
 
 /* 메뉴 리스트 */
@@ -64,12 +148,13 @@
 
 .menu-box .menu-item {
 	height: 410px;
-	flex: calc(25% - 2px);
+	flex: calc(24% - 2px);
 	text-align: center;
 	margin-bottom: 30px;
 	border: 1px solid #f1f1f1;
 	padding: 10px 0;
 	box-sizing: border-box;
+	cursor: pointer;
 }
 
 .menu-box .menu-item img {
@@ -83,3 +168,118 @@
 	background: lightgray;
 	padding: 0 0;
 }
+
+/* 옵션 선택 */
+.select-option {
+	position: fixed;
+	top: 70px;
+	left: 30%;
+	width: 600px;
+	height: 850px;
+	background: white;
+	border: 1px solid khaki;
+	z-index: 100;
+}
+
+.btn-close{
+	width:50px;
+	height:50px;
+	position:relative;
+	text-indent:-9999px;
+	float: right;
+	background: inherit ; 
+	border:none; 
+	box-shadow:none; 
+	border-radius:0; 
+	padding:0; 
+	overflow:visible; 
+	cursor:pointer;
+}
+
+.select-option .btn-close:before, .select-option .btn-close:after {
+	content:'';
+	width:30px;
+	height:1px;
+	position:absolute;
+	right: 5px;
+	top: 30px;
+	border-radius:4px;
+	background: darkkhaki;
+}
+
+.select-option .btn-close:before {
+	transform:translate(-50%,-50%) rotate(-45deg)
+}
+
+.select-option .btn-close:after {
+	transform:translate(-50%,-50%) rotate(45deg)
+}
+
+.select-option img {
+	width: 400px;
+	display: block;
+	margin: 0 auto;
+	margin-top: 50px;
+}
+
+.select-option p {
+	text-align: center;
+	font-size: 18px;
+}
+
+.select-option p strong {
+	font-size: 22px;
+}
+
+.select-option form {
+	width: 100%;
+	text-align: center;
+}
+
+.select-option form label {
+	display: block;
+	font-size: 18px;
+	font-weight: 700;
+	line-height: 40px;
+	color: darkkhaki;
+}
+
+.select-option form .radio {
+	display: inline-block;
+	width: 150px;
+	height: 40px;
+	margin-top: 30px;
+	margin-bottom: 40px;
+	border: 1px solid darkkhaki;
+	cursor: pointer;
+}
+
+.select-option form .radio.on {
+	background: darkkhaki;
+	color: white;
+}
+
+.select-option form .radio input[type="radio"] {
+	display: none;
+}
+
+.select-option form .amount input[type="text"] {
+	outline: none;
+	border: none;
+	border-bottom: 3px solid darkkhaki;
+	text-align: right;
+	font-size: 18px;
+	color: darkkhaki;
+}
+
+.select-option form input[type="submit"] {
+	margin-top: 40px;
+	background: darkkhaki;
+	color: white;
+}
+.select-option form input[type="submit"]:hover {
+	background: white;
+	border-color: darkkhaki;
+	color: darkkhaki;
+}
+
