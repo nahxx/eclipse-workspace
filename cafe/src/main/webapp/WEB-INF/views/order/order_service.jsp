@@ -45,8 +45,9 @@
 			</div>
 		</div>
 
-		<!-- 장바구니/ 결제 부분 -->
+		<!-- 장바구니/ 주문확인 영역 -->
 		<div class="cart-wrap">
+			<!-- 장바구니 영역 -->
 			<div class="cart-box">
 				<h5>주문 목록</h5>
 				<table>
@@ -60,7 +61,7 @@
 						<tr>
 							<td>${list.menuItem.name}(${list.hotOrIce})</td>
 							<td>
-								<c:if test="${list.amount < 0}">
+								<c:if test="${list.amount < 2}">
 									<button class="mop disabled" onclick="location.href='<c:url value="/order/count_amount/${list.menuItem.name}/${list.hotOrIce}/0"/>'">-</button>
 								</c:if>
 								<c:if test="${list.amount > 1}">
@@ -74,6 +75,23 @@
 						</tr>
 					</c:forEach>
 				</table>
+			</div>
+			<!-- 주문확인 영역 -->
+			<div class="order-box">
+				<div class="total-amount">
+					<p>선택된 상품</p>
+					<p><span>${totalAmount}</span>개</p>
+				</div>
+				<div class="all-remove">
+					<div><a href="<c:url value="/order/all_remove/${cid}"/>">주문 취소</a></div>
+				</div>
+				<div class="total-price">
+					<p>주문 금액</p>
+					<p><span>${cart.totalPrice.intValue()}</span>원</p>
+				</div>
+				<div class="finally-order">
+					<div><a href="<c:url value="/order/finally-order/${cid}"/>">주문<br>하기</a></div>
+				</div>
 			</div>
 		</div>
 
@@ -97,6 +115,15 @@
 					<label class="amount"><span>수량</span><input type="text" name="amount" value="1"/>&nbsp;개</label>
 					<input type="submit" value="담기"/>
 				</form>
+			</div>
+		</c:if>
+		
+		<!-- 주문 완료창 영역 -->
+		<c:if test="${oid ne null}">
+			<div class="order-list">
+				<p>주문이 완료되었습니다.</p>
+				<p>주문번호&nbsp;<span>${oid}</span></p>
+				<button class="btn" onclick="location.href='<c:url value='/'/>'">홈으로 가기</button>
 			</div>
 		</c:if>
 	</div>

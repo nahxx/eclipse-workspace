@@ -20,8 +20,9 @@
 }
 
 .cart-box {
+	overflow: auto;
 	width: 100%;
-	height: 60%;
+	height: 55%;
 	border: 1px solid #f1f1f1;
 	z-index: 100;
 }
@@ -33,6 +34,8 @@
 	border-bottom: 1px solid #f1f1f1;
 	background: darkkhaki;
 	color: white;
+	position: sticky;
+    top: 0px;
 }
 
 .cart-box table {
@@ -42,7 +45,7 @@
 }
 
 .cart-box table th:nth-child(1), .cart-box table td:nth-child(1) {
-	width: 40%;
+	width: 50%;
 }
 
 .cart-box table th:nth-child(2), .cart-box table td:nth-child(2) {
@@ -51,18 +54,21 @@
 }
 
 .cart-box table th:nth-child(3), .cart-box table td:nth-child(3) {
-	width: 30%;
-	text-align: right;
+	width: 20%;
+	text-align: center;
 	padding-right: 20px;
 	box-sizing: border-box;
 }
 
 .cart-box table th:nth-child(4), .cart-box table td:nth-child(4) {
 	width: 10%;
+	text-align: center;
 }
 
 .cart-box table th {
 	margin: 10px 0;
+	position: sticky;
+    top: 0px;
 }
 
 .cart-box table td {
@@ -71,9 +77,10 @@
 }
 
 .cart-box table tr:nth-child(1) {
-	border: 1px solid khaki;
 	background: khaki;
 	color: gray;
+	position: sticky;
+    top: 41px;
 }
 
 .cart-box .mop {
@@ -84,6 +91,7 @@
 	background: darkkhaki;
 	color: white;
 	visibility: visible;
+	cursor: pointer;
 }
 
 .cart-box .mop.disabled {
@@ -97,6 +105,107 @@
 	border: none;
 	background: darkkhaki;
 	color: white;
+	cursor: pointer;
+}
+
+/* 주문확인 영역 */
+.order-box {
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	flex-wrap: wrap;
+	width: 100%;
+	height: 45%;
+	border: 1px solid lightgray;
+	z-index: 100;
+}
+
+.order-box .total-amount {
+	flex: 60%;
+	height: 30%;
+	background: #f6f6f6;
+	border-bottom: 1px solid lightgray;
+}
+
+.order-box .total-amount p, .order-box .total-price p {
+	padding-left: 20px;
+	box-sizing: border-box;
+	font-size: 22px;
+	color: #555;
+}
+
+.order-box .total-amount p:first-child, .order-box .total-price p:first-child {
+	font-weight: 700;
+}
+
+.order-box .total-amount p + p, .order-box .total-price p + p {
+	margin-top: -2px;
+	padding-right: 20px;
+	text-align: right;
+	font-size: 32px;
+}
+
+.order-box .total-amount p span, .order-box .total-price p span {
+	display: inline-block;
+	margin-right: 5px;
+	color: darkkhaki;
+	font-weight: 700;
+}
+
+.order-box .all-remove {
+	flex: 40%;
+	height: 30%;
+	background: #888;
+	border-bottom: 1px solid lightgray;
+}
+
+.order-box .all-remove div, .order-box .finally-order div {
+	width: 100%;
+	height: 76%;
+	text-align: center;
+	box-sizing: border-box;
+}
+
+.order-box .all-remove div a, .order-box .finally-order div a {
+	display: inline-block;
+	width: 100%;
+	height: 100%;
+	padding-top: calc(25% - 18px);
+	color: #222;
+	text-align: center;
+	font-size: 35px;
+	font-weight: 700;
+	letter-spacing: 1px;
+}
+
+.order-box .total-price {
+	flex: 60%;
+	height: 70%;
+	background: #f6f6f6;
+}
+
+.order-box .total-price p {
+	font-size: 32px;
+}
+
+.order-box .total-price p + p {
+	margin-top: 2px;
+}
+
+.order-box .total-price p span {
+	font-size: 50px;
+}
+
+.order-box .finally-order {
+	flex: 40%;
+	height: 70%;
+	background: tomato;
+}
+
+.order-box .finally-order div a {
+	padding-top: 28%;
+	color: white;
+	letter-spacing: 2px;
 }
 
 /* 카테고리 선택 */
@@ -170,14 +279,14 @@
 }
 
 /* 옵션 선택 */
-.select-option {
+.select-option, .order-list {
 	position: fixed;
 	top: 70px;
 	left: 30%;
 	width: 600px;
 	height: 850px;
 	background: white;
-	border: 1px solid khaki;
+	border: 5px solid darkkhaki;
 	z-index: 100;
 }
 
@@ -196,7 +305,7 @@
 	cursor:pointer;
 }
 
-.select-option .btn-close:before, .select-option .btn-close:after {
+.btn-close:before, .btn-close:after {
 	content:'';
 	width:30px;
 	height:1px;
@@ -207,11 +316,11 @@
 	background: darkkhaki;
 }
 
-.select-option .btn-close:before {
+.btn-close:before {
 	transform:translate(-50%,-50%) rotate(-45deg)
 }
 
-.select-option .btn-close:after {
+.btn-close:after {
 	transform:translate(-50%,-50%) rotate(45deg)
 }
 
@@ -283,3 +392,31 @@
 	color: darkkhaki;
 }
 
+/* 주문 완료창 */
+.order-list p {
+	text-align: center;
+    margin-top: 200px;
+    font-size: 40px;
+    font-weight: 700;
+}
+
+.order-list p + p {
+	margin-top: 100px;
+    font-size: 50px;
+}
+
+.order-list p + p span {
+	color: darkkhaki;
+}
+
+.order-list .btn {
+	margin-top: 150px;
+	border: 1px solid darkkhaki;
+	background: darkkhaki;
+	color: white;
+}
+
+.order-list .btn:hover {
+	background: white;
+	color: darkkhaki;
+}
