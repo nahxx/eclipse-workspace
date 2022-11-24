@@ -1,7 +1,7 @@
 ### *스마트웹 응용 소프트웨어 개발자 양성 과정 - 개인 PROJECT*
 
-# 💸CAFE NANA  
-> ### *카페 키오스크 시스템 <CAFE NANA>*
+# ☕CAFE NANA  
+> ### *카페 키오스크 시스템 << CAFE NANA >>*
 </br>
 
 <img width="100%" src="https://user-images.githubusercontent.com/75259593/203715421-3acee98f-6959-4057-b85a-fa092284ed2e.png"/>
@@ -10,7 +10,7 @@
 ------
 </br>
 
-### 💲&nbsp;사용기술 및 개발환경
+### 🥨&nbsp;사용기술 및 개발환경
 * **개발환경** 👉 windows OS  
 * **개발도구** 👉 eclipse  
 * **개발언어 및 프레임워크** 👉 JAVA, JavaScript, spring MVC  
@@ -21,7 +21,7 @@
 ------
 </br>
 
-### 💲&nbsp;기능  
+### 🥨&nbsp;기능  
 
 
 |기능|상세설명|
@@ -33,7 +33,7 @@
 ------
 </br>
 
-### 💲&nbsp;개발 기간  
+### 🥨&nbsp;개발 기간  
 
 #### 2022.08.01 ~ 2022.08.05
 </br>
