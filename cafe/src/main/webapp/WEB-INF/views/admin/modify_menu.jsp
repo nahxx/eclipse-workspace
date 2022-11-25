@@ -51,7 +51,9 @@
 			</div>
 			<div class="modify-item">
 				<h4>메뉴 수정</h4>
-				<div class="modify-box"></div>
+				<div class="modify-box">
+					<p class="msg">왼쪽에서 수정할 메뉴를 선택해 주세요.</p>
+				</div>
 			</div>
 		</div>
 	</div>

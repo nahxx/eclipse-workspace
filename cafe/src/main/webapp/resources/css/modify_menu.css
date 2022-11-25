@@ -87,3 +87,9 @@ input[type="submit"] {
 	background: #fff;
 	cursor: pointer;
 }
+
+.msg {
+	text-align: center;
+    margin-top: 350px;
+    font-size: 25px;
+}
