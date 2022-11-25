@@ -17,7 +17,7 @@ import com.varxyz.cafe.menu.domain.MenuCategory;
 @Repository("categoryDao")
 public class CategoryDao {
 	
-	private JdbcTemplate jdbcTemplate;
+private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	public CategoryDao(DataSource dataSource) {
@@ -70,5 +70,15 @@ public class CategoryDao {
 				return category;
 			}
 		});
+	}
+	
+	public void removeCategoryByCid(long cid) {
+		String sql = "DELETE FROM Category WHERE cid = ?";
+		jdbcTemplate.update(sql, cid);
+	}
+	
+	public List<MenuCategory> findAllCategorysNotDupl() {
+		String sql = "SELECT DISTINCT cid, cateType, cateName, regDate FROM Category";
+		return jdbcTemplate.query(sql, new CategoryRowMapper());
 	}
 }

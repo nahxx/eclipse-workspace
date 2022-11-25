@@ -42,7 +42,7 @@
 	</div>
 	
 	<script type="text/javascript">
-		// 카테고리 삭제 확인
+		// 삭제 확인
 		function checkMsg(){
 			let elems = document.querySelectorAll('.check-item');
 			let check = 0;
@@ -66,7 +66,7 @@
 			}
 		};
 		
-		// 카테고리 삭제
+		// 삭제
 		function deleteCate() {
 			let deleteList = [];
 			let elems = document.querySelectorAll('.check-item');

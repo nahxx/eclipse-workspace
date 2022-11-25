@@ -17,10 +17,9 @@
 	</header>
 	<div class="wrap">
 		<h3>카테고리 관리</h3>
-		<div class="service-box">
-			<button class="btn" onclick="location.href='add_category'">카테고리 추가</button>
-			<button class="btn" onclick="location.href='remove_category'">카테고리 삭제</button> <!-- 삭제, 수정 나중에 -->
-			<button class="btn" onclick="location.href='modify_category'">카테고리 수정</button>
+		<div class="service-box admin-box">
+			<button class="btn admin-btn" onclick="location.href='add_category'">카테고리 추가</button>
+			<button class="btn admin-btn" onclick="location.href='remove_category'">카테고리 삭제</button>
 		</div>
 	</div>
 </body>

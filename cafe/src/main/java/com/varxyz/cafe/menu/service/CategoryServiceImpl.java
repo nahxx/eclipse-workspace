@@ -15,6 +15,7 @@ public class CategoryServiceImpl implements CategoryService {
 	@Autowired
 	CategoryDao cateDao;
 	
+	@Override
 	public void addCategory(CategoryCommand command) {
 		MenuCategory category = new MenuCategory();
 		category.setCateType(command.getCateType());
@@ -23,19 +24,33 @@ public class CategoryServiceImpl implements CategoryService {
 		cateDao.addCategory(category);
 	}
 	
+	@Override
 	public List<MenuCategory> getAllCategorys() {
 		return cateDao.findAllCategorys();
 	}
 	
+	@Override
 	public List<String> getCateNamesByCateType(String cateType) {
 		return cateDao.findCateNamesByCateType(cateType);
 	}
 	
+	@Override
 	public MenuCategory getCategoryByCid(long cid) {
 		return cateDao.findCategoryByCid(cid);
 	}
 	
+	@Override
 	public List<MenuCategory> getAllCategoryTypes() {
 		return cateDao.findAllCategoryTypes();
+	}
+
+	@Override
+	public void removeCategoryByCid(long cid) {
+		cateDao.removeCategoryByCid(cid);
+	}
+
+	@Override
+	public List<MenuCategory> getAllCategorysNotDupl() {
+		return cateDao.findAllCategorysNotDupl();
 	}
 }

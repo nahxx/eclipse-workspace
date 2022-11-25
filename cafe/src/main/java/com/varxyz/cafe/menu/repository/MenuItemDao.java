@@ -15,7 +15,7 @@ import com.varxyz.cafe.menu.domain.MenuItem;
 @Repository("menuItemDao")
 public class MenuItemDao {
 	
-	private JdbcTemplate jdbcTemplate;
+private JdbcTemplate jdbcTemplate;
 	
 	@Autowired
 	public MenuItemDao(DataSource dataSource) {
@@ -43,6 +43,26 @@ public class MenuItemDao {
 	public MenuItem findMenuItemByMid(long mid) {
 		String sql = "SELECT mid, name, price, imageUrl, cid, regDate FROM MenuItem WHERE mid = ?";
 		return jdbcTemplate.queryForObject(sql, new MenuItemRowMapper(), mid);
+	}
+	
+	public void deleteMenuItemByCid(long cid) {
+		String sql = "DELETE FROM MenuItem WHERE cid = ?";
+		jdbcTemplate.update(sql, cid);
+	}
+	
+	public void deleteMenuItemByMid(long mid) {
+		String sql = "DELETE FROM MenuItem WHERE mid = ?";
+		jdbcTemplate.update(sql, mid);
+	}
+	
+	public void modifyMenuItem(MenuItem menuItem) {
+		if(menuItem.getImageUrl().equals("")) {
+			String sql = "UPDATE MenuItem SET name = ?, price = ?, cid = ? WHERE mid = ?";
+			jdbcTemplate.update(sql, menuItem.getName(), menuItem.getPrice(), menuItem.getMenuCategory().getCid(), menuItem.getMid());
+		} else {
+			String sql = "UPDATE MenuItem SET name = ?, price = ?, imageUrl = ?, cid = ? WHERE mid = ?";
+			jdbcTemplate.update(sql, menuItem.getName(), menuItem.getPrice(), menuItem.getImageUrl(), menuItem.getMenuCategory().getCid(), menuItem.getMid());
+		}
 	}
 	
 }

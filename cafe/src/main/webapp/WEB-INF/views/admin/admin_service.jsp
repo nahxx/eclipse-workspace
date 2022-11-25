@@ -15,9 +15,9 @@
 	</jsp:include>
 	<div class="wrap">
 		<h3>관리자 서비스</h3>
-		<div class="service-box">
-			<button class="btn" onclick="location.href='category_service'">카테고리 관리</button>
-			<button class="btn" onclick="location.href='menu_service'">메뉴 관리</button>
+		<div class="service-box admin-box">
+			<button class="btn admin-btn" onclick="location.href='category_service'">카테고리 관리</button>
+			<button class="btn admin-btn" onclick="location.href='menu_service'">메뉴 관리</button>
 		</div>
 	</div>
 </body>

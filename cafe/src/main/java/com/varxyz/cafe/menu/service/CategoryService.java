@@ -11,4 +11,6 @@ public interface CategoryService {
 	List<String> getCateNamesByCateType(String cateType);
 	MenuCategory getCategoryByCid(long cid);
 	List<MenuCategory> getAllCategoryTypes();
+	void removeCategoryByCid(long cid);
+	List<MenuCategory> getAllCategorysNotDupl();
 }

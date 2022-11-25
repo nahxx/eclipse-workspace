@@ -17,10 +17,10 @@
 	</header>
 	<div class="wrap">
 		<h3>메뉴 관리</h3>
-		<div class="service-box">
-			<button class="btn" onclick="location.href='add_menu'">메뉴 추가</button>
-			<button class="btn" onclick="location.href='remove_menu'">메뉴 삭제</button> <!-- 삭제, 수정 나중에 -->
-			<button class="btn" onclick="location.href='modify_menu'">메뉴 수정</button>
+		<div class="service-box admin-box">
+			<button class="btn admin-btn" onclick="location.href='add_menu'">메뉴 추가</button>
+			<button class="btn admin-btn" onclick="location.href='remove_menu'">메뉴 삭제</button>
+			<button class="btn admin-btn" onclick="location.href='modify_menu'">메뉴 수정</button>
 		</div>
 	</div>
 </body>

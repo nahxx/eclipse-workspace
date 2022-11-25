@@ -7,6 +7,7 @@
 <head>
 <title>CAFE NANA</title>
 <link rel="stylesheet" type="text/css" href="<c:url value="/resources/css/default.css"/>"/>
+<script type="text/javascript" src="<c:url value='/resources/js/common/jquery.js'/>"></script>
 </head>
 <body>
 	<header id="header">
@@ -20,7 +21,8 @@
 		<form class="add-menu" action="add_menu" method="post" enctype="multipart/form-data">
 			<label>
 				<span>대분류</span>
-				<select name="cateType">
+				<select id="cateType" name="cateType" onChange='javascript:getCateName(this);'>
+					<option value="unknown">-- 선택 --</option>
 					<c:forEach var="cate" items="${cateList}">
 						<option value="${cate.cateType}">${cate.cateType}</option>
 					</c:forEach>
@@ -28,10 +30,12 @@
 			</label>
 			<label>
 				<span>중분류</span>
-				<select name="cateName">
+				<select id="cateName" name="cateName">
+				<!-- 
 					<c:forEach var="cate" items="${cateList}">
 						<option value="${cate.cateName}">${cate.cateName}</option>
 					</c:forEach>
+				 -->
 				</select>
 			</label>
 			<label>
@@ -74,5 +78,27 @@
 			</table>
 		</c:if>
 	</div>
+	
+	<script type="text/javascript">
+		// 중분류 가져오기
+		function getCateName(value) {
+			let sCateType = document.getElementById("cateType");
+        	let cateType = sCateType.options[sCateType.selectedIndex].value;
+        	if(cateType == "unknown") {
+				return alert("대분류를 선택해주세요.");
+			}
+        	$.ajax({
+        		async: true,
+				type: 'POST',
+				data: cateType,
+				url: 'getCateName',
+				dataType: 'html',
+				contentType: 'application/json; charset=UTF-8',
+				success: function(data) {
+					$('#cateName').html(data);
+				}
+        	});
+		}
+	</script>
 </body>
 </html>

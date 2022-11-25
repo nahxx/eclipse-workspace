@@ -11,4 +11,7 @@ public interface MenuItemService {
 	List<MenuItem> getAllMenuItems();
 	List<MenuItem> getMenuItemsByCid(long cid);
 	MenuItem getMenuItemByMid(long mid);
+	void deleteMenuItemByCid(long cid);
+	void deleteMenuItemByMid(long mid);
+	void modifyMenuItem(MenuItemCommand command, Long mid) throws IllegalStateException, IOException;
 }
